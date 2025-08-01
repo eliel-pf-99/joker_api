@@ -7,15 +7,14 @@ class DBJoke:
     def __init__(self):
         self.db = create_db()
 
-    def count_jokes(self):
-        statement = select(func.count(Joke.id)) # type: ignore
-        row_count = self.db.exec(statement).one() # type: ignore
-        return row_count[0]
+    def random_joke(self):
+        statement = select(Joke).order_by(func.random()).limit(1)
+        joke_random = self.db.exec(statement).first()  # type: ignore
+        return joke_random
 
     def getRandomJoke(self):
-        jokeId = random.randint(1, self.count_jokes())
-        joke = self.db.get(Joke, jokeId)
-        return {'joke': joke}
+        joke = self.random_joke()[0]
+        return joke
         
 
     def createJoke(self, jokeModel: JokeModel):
