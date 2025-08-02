@@ -19,7 +19,7 @@ async def root():
 
 @app.get("/getJoke")
 async def getJoke():
-    return db.getRandomJoke()
+    return db.random_joke()
 
 @app.patch("/denounceJoke")
 async def denounceJoke(id: JokeId):
