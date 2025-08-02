@@ -9,7 +9,7 @@ class DBJoke:
         def action(eng):
             statement = select(Joke).order_by(func.random()).limit(1)
             joke = eng.exec(statement).first()  # type: ignore
-            return joke
+            return joke[0]
         joke_random = do(action)
         return joke_random
         
