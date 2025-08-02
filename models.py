@@ -14,5 +14,12 @@ def create_db():
     
     with Session(engine) as session:
         return session
+    
+def do(action):
+    engine = create_engine(settings.settings.database_url)
+    SQLModel.metadata.create_all(engine)
+    
+    with Session(engine) as session:
+        return action(session)
 
         
